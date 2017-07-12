@@ -1,0 +1,271 @@
+#:import Graph kivy.garden.graph.Graph
+#:import MeshLinePlot kivy.garden.graph.MeshLinePlot
+
+<pid>: # FloatLayout
+
+    TabbedPanel:
+        id: tab_panel
+        size_hint: .7, 1
+        pos_hint: {'x':0, 'y':0.003}
+        do_default_tab: False
+        tab_height: -1
+        tab_width: -1
+        background_color: 0,0,0,0
+
+        TabbedPanelItem:
+            id: pos_tab
+
+            FloatLayout:
+
+                Graph:
+                    id: pos_graph
+                    size_hint: 0.8, 0.8
+                    pos_hint: {'x': 0.1, 'y': 0.1}
+                    xmax: 1500
+                    x_ticks_major: 100
+                    x_grid: True
+                    x_grid_label: True
+                    ymin: 0
+                    ymax:  1000
+                    y_ticks_major: 100
+                    y_grid: True
+                    y_grid_label: True
+                    #border_color: [.14, .18, .2, 1]
+                    tick_color: [1,1,1,1]
+
+
+        TabbedPanelItem:
+            id: error_tab
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 5
+
+                Graph:
+                    id: graph_1
+                    xmax: 2000
+                    x_ticks_major: 100
+                    x_grid: True
+                    x_grid_label: True
+                    ylabel: "Error 1"
+                    ymin: -500
+                    ymax:  500
+                    y_ticks_major: 100
+                    y_grid: True
+                    y_grid_label: True
+                    tick_color: [1,1,1,0.5]
+
+                Graph:
+                    id: graph_2
+                    xmax: 2000
+                    x_ticks_major: 100
+                    x_grid: True
+                    x_grid_label: True
+                    ylabel: "Error 2"
+                    ymin: -500
+                    ymax:  500
+                    y_ticks_major: 100
+                    y_grid: True
+                    y_grid_label: True
+                    tick_color: [1,1,1,0.5]
+
+                Graph:
+                    id: graph_3
+                    xmax: 2000
+                    x_ticks_major: 100
+                    x_grid: True
+                    x_grid_label: True
+                    ylabel: "Error 3"
+                    ymin: -500
+                    ymax:  500
+                    y_ticks_major: 100
+                    y_grid: True
+                    y_grid_label: True
+                    tick_color: [1,1,1,0.5]
+
+    FloatLayout:
+        size_hint: .3, .5
+        pos_hint: {'x':.7, 'y':.5}
+
+        Label:
+            size_hint: 1, .2
+            pos_hint: {'x':-0.2, 'y':.8}
+            text: "Functionality:"
+            font_size: self.height/2
+            underline: True
+
+        Button:
+            size_hint: .25, .15
+            pos_hint: {'x': 0.7, 'y':0.82}
+            font_size: self.height/2.5
+            background_normal: ''
+            background_color: .18,.49,.6,1
+            on_press: root.toggle_tabs()
+            text: "Toggle\n Graph"
+
+        Label:
+            size_hint: 1, .15
+            pos_hint: {'x':0, 'y':.65}
+            text: "Platform Only:"
+            font_size: self.height/2
+
+        BoxLayout:
+            size_hint: 1, .15
+            pos_hint: {'x':0, 'y':.5}
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 5, 0
+
+            Button:
+                id: up_btn
+                text: "Up"
+                on_press: root.send_serial(3, self.text, self)
+                background_normal: ''
+                background_color: (192/255),(57/255),(43/255),1
+                font_size: self.height/2.5
+
+            Button:
+                id: down_btn
+                text: "Down"
+                on_press: root.send_serial(4, self.text, self)
+                background_normal: ''
+                background_color: (192/255),(57/255),(43/255),1
+                font_size: self.height/2.5
+
+            Button:
+                id: rotate_btn
+                text: 'Rotate'
+                on_press: root.send_serial(5, self.text, self)
+                background_normal: ''
+                background_color: (192/255),(57/255),(43/255),1
+                font_size: self.height/2.5
+
+        Label:
+            size_hint: 1, .15
+            pos_hint: {'x':0, 'y':.35}
+            text: "Ball & Platform:"
+            font_size: self.height/2
+
+        BoxLayout:
+            size_hint: 1, .15
+            pos_hint: {'x':0, 'y':.2}
+            orientation: 'horizontal'
+            spacing: 10
+            padding: 5, 0
+
+            Button:
+                id: center_btn
+                text: 'Center'
+                on_press: root.send_serial(0, self.text, self)
+                background_normal: ''
+                background_color: (192/255),(57/255),(43/255),1
+                font_size: self.height/2.5
+
+            Button:
+                id: corners_btn
+                text: "Corners"
+                on_press: root.send_serial(1, self.text, self)
+                background_normal: ''
+                background_color: (192/255),(57/255),(43/255),1
+                font_size: self.height/2.5
+
+            Button:
+                id: circle_btn
+                text: "Circle"
+                on_press: root.send_serial(2, self.text, self)
+                background_normal: ''
+                background_color: (192/255),(57/255),(43/255),1
+                font_size: self.height/2.5
+
+        Button:
+            size_hint: .45, .16
+            pos_hint: {'x':0.025, 'y':0.02}
+            text: "Reset All"
+            on_press: root.reset_all()
+            background_normal: ''
+            background_color: 1,.73,0,1
+            font_size: self.height/2.5
+
+        Button:
+            id: coms_btn
+            size_hint: .45, .16
+            pos_hint: {'x':0.525, 'y':0.02}
+            text: "Begin Coms"
+            on_press: root.coms_btn_press()
+            background_normal: ''
+            background_color: 1,.73,0,1
+            font_size: self.height/2.5
+
+    # -------------------- Sliders --------------------
+    FloatLayout:
+        size_hint: .3, .5
+        pos_hint: {'x':.7, 'y':0}
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, .15
+            pos_hint: {'x':0, 'y':.85}
+
+            Label:
+                text: "P"
+                font_size: self.height/1.5
+
+            Label:
+                text: "I"
+                font_size: self.height/1.5
+
+            Label:
+                text: "D"
+                font_size: self.height/1.5
+
+        BoxLayout:
+            size_hint: 1, .7
+            pos_hint: {'x':0, 'y':.15}
+            orientation: "horizontal"
+
+            Slider:
+                id: p_slider
+                orientation: 'vertical'
+                value_track: True
+                value_track_color: [0, 1, 1, 0.5]
+                min: 0
+                max: 10
+                value: 3.5
+                step: .5
+
+            Slider:
+                id: i_slider
+                orientation: 'vertical'
+                value_track: True
+                value_track_color: [0, 1, 1, 0.5]
+                min: 0
+                max: 10
+                value: 0
+                step: 0.5
+
+            Slider:
+                id: d_slider
+                orientation: 'vertical'
+                value_track: True
+                value_track_color: [0, 1, 1, 0.5]
+                min: 0
+                max: 20
+                value: 9
+                step: 1
+
+        BoxLayout:
+            size_hint: 1, .15
+            pos_hint: {'x':0, 'y':0}
+            orientation: "horizontal"
+
+            Label:
+                text: str(p_slider.value)
+                font_size: self.height/1.5
+
+            Label:
+                text: str(i_slider.value)
+                font_size: self.height/1.5
+
+            Label:
+                text: str(d_slider.value)
+                font_size: self.height/1.5
